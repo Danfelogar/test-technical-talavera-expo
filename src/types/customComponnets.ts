@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
+import { Control, FieldValues } from "react-hook-form";
 import { KeyboardTypeOptions, StyleProp } from "react-native";
 
 //Input
-export interface CustomInputGeneric {
+export interface CustomInputGeneric<T extends FieldValues> {
   borderColor?: string;
   inputStyle?: StyleProp<any>;
   keyboardType?: KeyboardTypeOptions;
@@ -18,5 +19,5 @@ export interface CustomInputGeneric {
   heightMultiline?: number;
   //control
   name: string;
-  control: any;
+  control: Control<T, any>;
 }

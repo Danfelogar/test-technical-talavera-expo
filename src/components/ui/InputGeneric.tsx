@@ -1,10 +1,10 @@
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues, Path } from "react-hook-form";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
 import { Colors } from "@/src/utils";
 import { CustomInputGeneric } from "@/src/types";
 
-export function InputGeneric({
+export function InputGeneric<T extends FieldValues>({
   keyboardType,
   borderColor,
   firstIcon,
@@ -20,14 +20,14 @@ export function InputGeneric({
   heightMultiline,
   name,
   control,
-}: CustomInputGeneric) {
+}: CustomInputGeneric<T>) {
   const { WrapperStandard, contentInput, contentInputGeneric, helperText } =
     styles;
   return (
     <Controller
       shouldUnregister
       control={control}
-      name={name}
+      name={name as Path<T>}
       render={({ field: { onChange, value = "" }, formState: { errors } }) => {
         return (
           <View
