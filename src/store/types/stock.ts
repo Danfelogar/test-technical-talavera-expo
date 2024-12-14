@@ -2,10 +2,12 @@ import { Stock } from "@/src/types";
 
 export interface StockState {
   //states
+  filterStockName: string;
   isLoading: boolean;
   stockList?: Stock[];
   stockPrevent?: Stock[];
   //actions
+  changeFilterStockName: (filterStockName: string) => void;
   getStockList: () => void;
   setStockList: (stockList: Stock[]) => void;
   setPrevStockList: (stockList: Stock[]) => void;
@@ -15,5 +17,9 @@ export interface StockState {
 export interface StockWithoutAction
   extends Omit<
     StockState,
-    "getStockList" | "setStockList" | "setPrevStockList" | "changeLoading"
+    | "changeFilterStockName"
+    | "getStockList"
+    | "setStockList"
+    | "setPrevStockList"
+    | "changeLoading"
   > {}

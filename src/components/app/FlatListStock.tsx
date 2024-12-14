@@ -1,3 +1,4 @@
+import { Fragment, useEffect, useRef } from "react";
 import {
   Animated,
   Image,
@@ -8,6 +9,9 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { useForm } from "react-hook-form";
+import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
+
 import {
   Colors,
   heightFullScreen,
@@ -15,11 +19,10 @@ import {
   SPACING,
   widthFullScreen,
 } from "@/src/utils";
-import { Fragment, useEffect, useRef } from "react";
 import { StockCard } from "../ui";
 import useStockState from "@/src/store/stock";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNetworkConnection } from "@/src/hooks";
+import { InputGeneric } from "../ui/InputGeneric";
 
 export const FlatListStock = () => {
   const {
@@ -27,6 +30,7 @@ export const FlatListStock = () => {
     stockList,
     isLoading,
     //actions
+    changeFilterStockName,
     getStockList,
   } = useStockState();
   const {
@@ -35,8 +39,20 @@ export const FlatListStock = () => {
     //methods
     //actions
   } = useNetworkConnection();
-  const { voidWrapper, imgWrapper, title, btn } = styles;
+  const { voidWrapper, imgWrapper, title, btn, inputStyles } = styles;
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  const { control, watch } = useForm<{
+    filterName: string;
+  }>();
+
+  const filterName = watch("filterName");
+
+  useEffect(() => {
+    if (filterName === undefined) return;
+    changeFilterStockName(filterName);
+  }, [filterName]);
+
   useEffect(() => {
     if (isConnected) {
       getStockList();
@@ -54,6 +70,19 @@ export const FlatListStock = () => {
           <Text style={{ fontSize: 24, fontWeight: "bold", margin: "7%" }}>
             Stocks
           </Text>
+          <InputGeneric
+            control={control}
+            firstIcon={
+              <Feather name="search" size={25} color={Colors.gray["500"]} />
+            }
+            name={"filterName"}
+            inputStyle={inputStyles}
+            placeholder="search by name stock..."
+            keyboardType="default"
+            placeholderTextColor={Colors.gray["700"]}
+            inputColor={Colors.black}
+            autoCorrect={false}
+          />
           <Animated.FlatList
             testID="stock-list"
             data={stockList}
@@ -102,7 +131,7 @@ export const FlatListStock = () => {
                 <MaterialCommunityIcons
                   name="wifi-off"
                   size={50}
-                  color="gray"
+                  color={Colors.gray["700"]}
                 />
                 <Text style={title}>No Network Connection</Text>
 
@@ -151,5 +180,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 20,
+  },
+  inputStyles: {
+    backgroundColor: Colors.white,
+    borderRadius: 90,
+    width: widthFullScreen * 0.9,
+    height: heightFullScreen * 0.07,
+
+    shadowColor: Colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
   },
 });
