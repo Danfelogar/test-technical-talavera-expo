@@ -1,18 +1,20 @@
-import { create } from "zustand";
-import { StockState, StockWithoutAction } from "./types";
-import dummyData from "../utils/const/dummyData.json";
-import { Stock } from "../types";
-import { WaitTime } from "../utils";
+import { create } from "./zustand";
 
-const INITIAL_STATE: StockWithoutAction = {
+import { type StateCreator } from "zustand";
+import dummyData from "@/src/utils/const/dummyData.json";
+import { StockState, StockWithoutAction } from "@/src/store";
+import { WaitTime } from "@/src/utils";
+import { Stock } from "@/src/types";
+
+export const INITIAL_STATE_STOCK_MOCK: StockWithoutAction = {
   filterStockName: "",
   isLoading: false,
   stockList: [],
   stockPrevent: [],
 };
 
-const useStockState = create<StockState>((set, get) => ({
-  ...INITIAL_STATE,
+const useStockState: StateCreator<StockState> = (set, get) => ({
+  ...INITIAL_STATE_STOCK_MOCK,
   //actions
   changeLoading: (isLoading: boolean) => set({ isLoading }),
   changeFilterStockName: (filterStockName: string) => {
@@ -29,6 +31,10 @@ const useStockState = create<StockState>((set, get) => ({
     const { changeLoading, setPrevStockList, setStockList } = currentState;
     changeLoading(true);
     setTimeout(() => {
+      // mmkvStorage.set(
+      //   LocalStoreKey.previoData,
+      //   JSON.stringify(dummyData.stocks)
+      // );
       setPrevStockList(dummyData.stocks);
       setStockList(dummyData.stocks);
       changeLoading(false);
@@ -36,6 +42,6 @@ const useStockState = create<StockState>((set, get) => ({
   },
   setStockList: (stockList: Stock[]) => set({ stockList }),
   setPrevStockList: (stockPrevent: Stock[]) => set({ stockPrevent }),
-}));
+});
 
-export default useStockState;
+export const useStockStateMock = create<StockState>()(useStockState);

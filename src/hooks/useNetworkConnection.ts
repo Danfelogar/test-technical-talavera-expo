@@ -35,5 +35,6 @@ export const useNetworkConnection = () => {
     isConnected,
     //methods
     //actions
+    checkConnection,
   };
 };

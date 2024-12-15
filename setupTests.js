@@ -1,4 +1,8 @@
 // setupTests.js
+
+// for zustand
+import "@testing-library/jest-dom";
+
 jest.mock("react-native/Libraries/Utilities/Platform", () => ({
   ...jest.requireActual("react-native/Libraries/Utilities/Platform"),
   NativeModules: {
