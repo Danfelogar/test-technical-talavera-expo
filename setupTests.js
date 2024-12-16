@@ -23,9 +23,17 @@ jest.mock("expo-font", () => ({
 
 jest.mock("@expo/vector-icons", () => {
   const React = require("react");
+  //return depend on the icon you are using in your project
   return {
     MaterialCommunityIcons: ({ name, size, color }) => (
       <span>{`${name} (${size}, ${color})`}</span>
     ),
+    Feather: ({ name, size, color }) => (
+      <span>{`${name} (${size}, ${color})`}</span>
+    ),
   };
 });
+
+//this lines is for react-hook-form testing
+global.window = {};
+global.window = global;

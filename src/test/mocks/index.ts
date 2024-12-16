@@ -1,3 +1,3 @@
-export * from "./dummyMock";
-export * from "./stocksStoreMock";
-export * from "./zustand";
+export * from './dummyMock';
+export * from './stocksStoreMock';
+export * from './zustand';

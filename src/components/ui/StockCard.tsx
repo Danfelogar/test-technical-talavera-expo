@@ -22,7 +22,10 @@ export const StockCard: FC<Props> = ({
   const { wrapperCard, link, subtitle, title } = styles;
 
   return (
-    <Animated.View style={{ ...wrapperCard, opacity, transform: [{ scale }] }}>
+    <Animated.View
+      testID="stock-item"
+      style={{ ...wrapperCard, opacity, transform: [{ scale }] }}
+    >
       <Image
         source={{
           uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/768px-Bitcoin.svg.png",

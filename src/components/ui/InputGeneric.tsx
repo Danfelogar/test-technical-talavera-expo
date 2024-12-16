@@ -34,6 +34,7 @@ export function InputGeneric<T extends FieldValues>({
             style={[WrapperStandard, multilineStyle ? multilineStyle : null]}
           >
             <View
+              testID="view-component"
               style={{
                 ...contentInputGeneric,
                 borderColor: borderColor ? borderColor : "transparent",
@@ -43,6 +44,7 @@ export function InputGeneric<T extends FieldValues>({
             >
               {firstIcon && firstIcon}
               <TextInput
+                testID="input-component"
                 style={{
                   ...contentInput,
                   color: inputColor,
@@ -65,7 +67,10 @@ export function InputGeneric<T extends FieldValues>({
               {lastIcon && lastIcon}
             </View>
             {!!errors[name] && (
-              <Text style={{ ...helperText, color: Colors.danger.default }}>
+              <Text
+                testID="error-msm"
+                style={{ ...helperText, color: Colors.danger.default }}
+              >
                 {errors[name]?.message as string}
               </Text>
             )}

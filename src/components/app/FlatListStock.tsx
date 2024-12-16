@@ -63,7 +63,11 @@ export const FlatListStock = () => {
     <Fragment>
       {isLoading ? (
         <View style={voidWrapper}>
-          <ActivityIndicator size="large" color={Colors.brand.default} />
+          <ActivityIndicator
+            testID="activity-indicator"
+            size="large"
+            color={Colors.brand.default}
+          />
         </View>
       ) : (
         <Fragment>
@@ -119,7 +123,7 @@ export const FlatListStock = () => {
                 outputRange: [1, 1, 1, 0],
               });
 
-              return <StockCard scale={scale} opacity={opacity} {...item} />;
+              return <StockCard  scale={scale} opacity={opacity} {...item} />;
             }}
             ListFooterComponent={<View style={{ marginBottom: 60 }} />}
             ListEmptyComponent={

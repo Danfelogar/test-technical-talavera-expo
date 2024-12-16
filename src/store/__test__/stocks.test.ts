@@ -5,7 +5,6 @@ import {
   renderHook,
   useStockStateMock,
 } from "@/src/test";
-import { WaitTime } from "@/src/utils";
 
 describe("Testing stock.ts file", () => {
   test("should return the initial state", () => {
